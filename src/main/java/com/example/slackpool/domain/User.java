@@ -6,5 +6,6 @@ import lombok.Value;
 public class User {
 
     private final String userId;
+    private final String userName;
 
 }
