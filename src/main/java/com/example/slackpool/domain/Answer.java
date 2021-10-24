@@ -1,11 +1,29 @@
 package com.example.slackpool.domain;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
-@Value
+import javax.persistence.*;
+
+@Data
+@Setter(value = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Entity
+@Table(name = "answers")
+@IdClass(AnswerPK.class)
 public class Answer {
 
-    private final User answerer;
-    private final boolean answer;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "answerer_id", referencedColumnName = "id")
+    private User answerer;
+    @Id
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private YesNoQuestion question;
+
+    private boolean answer;
 
 }
