@@ -36,4 +36,16 @@ public class YesNoQuestion {
         this.answers = null;
     }
 
+    public String getAnswerSummary() {
+        int pros = 0;
+        int cons = 0;
+        if (answers != null)
+            for (Answer a : answers) {
+                if (a.isAnswer())
+                    pros += 1;
+                else cons += 1;
+            }
+        return "Pros: " + pros + ", cons:" + cons;
+    }
+
 }
