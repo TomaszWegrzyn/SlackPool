@@ -22,7 +22,7 @@ public class SlackCommandsController {
 
     @PostConstruct
     public void init() {
-        slackApp.command("/question2", this::createQuestionnaire);
+        slackApp.command("/question", this::createQuestionnaire);
     }
 
     Response createQuestionnaire(SlashCommandRequest req, SlashCommandContext context) {
