@@ -24,7 +24,7 @@ public class YesNoQuestion {
     private LocalDateTime creationTime;
     private LocalDateTime endTime;
     private String question;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
     private Set<Answer> answers;
 
     public YesNoQuestion(CreateQuestionnaireCommand command) {
@@ -48,4 +48,7 @@ public class YesNoQuestion {
         return "Pros: " + pros + ", cons:" + cons;
     }
 
+    public void end() {
+        this.endTime = LocalDateTime.now();
+    }
 }
