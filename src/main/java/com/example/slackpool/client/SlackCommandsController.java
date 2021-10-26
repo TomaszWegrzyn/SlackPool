@@ -23,6 +23,7 @@ public class SlackCommandsController {
     @PostConstruct
     public void init() {
         slackApp.command("/question", this::createQuestionnaire);
+        slackApp.command("/endquestion", this::endQuestionnaire);
     }
 
     Response createQuestionnaire(SlashCommandRequest req, SlashCommandContext context) {
@@ -31,5 +32,10 @@ public class SlackCommandsController {
                 .author(new User(req.getPayload().getUserId(), req.getPayload().getUserName()))
                 .build());
         return context.ack("Created questionnaire " + question.getQuestion() + " " + question.getAnswerSummary());
+    }
+
+    private Response endQuestionnaire(SlashCommandRequest req, SlashCommandContext context) {
+        var question = questionnaireService.end(req.getPayload().getText());
+        return context.ack("Finished questionnaire " + question.getQuestion() + " " + question.getAnswerSummary());
     }
 }
